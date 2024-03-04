@@ -20,10 +20,9 @@ def scraping(request):
     options = webdriver.ChromeOptions()
     driver = webdriver.Chrome(service=service, options=options)
     driver.maximize_window()
-    #driver.get(url)
 
     """SCROLLING_EDITAL
-        Desce a página de acordo com a div selecionada pela variável XPATH
+        Desce a página de acordo com a div selecionada pela variável XPATH!
     """
     def scroll_edital(driver):
         try:
@@ -35,7 +34,7 @@ def scraping(request):
             return False
 
     """CLICK_NEXT
-        scrolling_next_page: Clina no botão next no final da página!
+        Clica no botão next no final da página!
     """
     def click_next(driver):
         try:
@@ -64,7 +63,7 @@ def scraping(request):
             return False
         
     """FIND_ELEMENTS
-        Encontra todas os elementos necessários, melhor forma no site foi atráves de xpath
+        Encontra todas os elementos necessários, melhor forma no site foi atráves de xpath!
     """     
     def find_elements(driver):
         try:
@@ -114,6 +113,10 @@ def scraping(request):
 
                     objeto, modalidade, comprador, descricao, unidade, quantidade, valor = find_elements(driver)
 
+                    """NOVO_DADO
+                        Variável novo_dado, recebe a classe DadosRaspados e atribui a cada variável da classe, a variável correspondente da função find_elements as quais
+                        recebem os elementos do scraping!
+                    """
                     novo_dado = DadosRaspados(
                         objeto=objeto,
                         modalidade=modalidade,
@@ -126,7 +129,7 @@ def scraping(request):
                     novo_dado.save()
 
                     """PRINTS
-                        Simples prints para ver o que estava sendo retornados dos text
+                        Simples prints para ver o que estava sendo retornados dos text!
                     """
                     print(f"Objeto: {objeto}")
                     print(f"Modalidade: {modalidade}")
@@ -141,7 +144,7 @@ def scraping(request):
 
                 finally:
                     """DRIVER.BACK
-                        Volta para a página anterior
+                        Volta para a página anterior!
                     """
                     driver.back()
 
@@ -151,8 +154,9 @@ def scraping(request):
             except (Exception, TimeoutException, NoSuchElementException, StaleElementReferenceException) as er:
                 print(f'ERROR:   {er}')
                 break
-
+            
             if cont == 1001:
+                #Encerra o loop quando número de páginas foram == a 1000!
                 try:
                     print("Última página!")
                     break
